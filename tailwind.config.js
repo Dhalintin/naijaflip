@@ -15,6 +15,16 @@ module.exports = {
         thin: "scrollbar-thin",
         fat: "scrollbar-fat",
       },
+      colors: {
+        primary: "#B15A1A",
+        secondary: "#FFB479",
+      },
+      fontFamily: {
+        capriola: ["var(--font-capriola)", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"], // your default font
+
+        // capriola: ['var(--font-capriola)', 'sans-serif'],
+      },
     },
   },
   plugins: [],
