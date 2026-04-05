@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 export default function Dashboard() {
   const [username, setUserName] = useState("User");
   const [image, setImage] = useState<string | null>(null);
-  const [logoutMenu, setLogoutMenu] = useState(false);
+
   const [showLogoutMenu, setShowLogoutMenu] = useState(false);
   const [isOpenDifficulty, setIsOpenDifficulty] = useState<boolean>(false);
   const router = useRouter();

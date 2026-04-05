@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Capriola } from "next/font/google";
+import { enableIndexedDbPersistence } from "firebase/firestore";
 import "./globals.css";
+import { db } from "@/lib/firebase";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,6 +24,16 @@ const capriola = Capriola({
   subsets: ["latin"],
   variable: "--font-capriola", // This makes it easy to use in Tailwind
   display: "swap", // Prevents layout shift
+});
+
+enableIndexedDbPersistence(db).catch((err) => {
+  if (err.code === "failed-precondition") {
+    console.warn(
+      "Multiple tabs open – persistence can only be enabled in one tab."
+    );
+  } else if (err.code === "unimplemented") {
+    console.warn("Browser does not support persistence.");
+  }
 });
 
 export default function RootLayout({

@@ -20,6 +20,7 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import { gameGrid } from "@/utils/gridStyle";
 import FunFactModal from "@/components/FunFactModal";
 import { funfact } from "@/utils/fun-facts";
+import FunfareModal from "@/components/Funfare";
 
 export default function GamePage() {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -271,27 +272,6 @@ export default function GamePage() {
       setRevealedCards(reveal);
     }, 1000);
   };
-  const handleNextLevel = async () => {
-    setIsLoading(true);
-    if (isGameWon) {
-      await saveGameResult({
-        userId: user.uid,
-        gameLevel: currentLevelId - 1,
-        score: score,
-        status: isGameWon ? "won" : "lost",
-        timeTaken: det.time - remainingTime,
-      });
-
-      await createOrUpdateUser({
-        uid: user.uid,
-        currentLevel: currentLevelId + 1,
-        points: user.point + score,
-      });
-    }
-    setIsLoading(false);
-    // Check if user has won this level and if yes proceed to next level else notify them
-    alert("Next level validation");
-  };
 
   const handleClose = () => {
     if (isPaused) {
@@ -304,14 +284,6 @@ export default function GamePage() {
   useEffect(() => {
     setOpenModal((isGameFinished || isPaused) && !isGameWon);
   }, [isGameFinished, isPaused]);
-
-  const handleSetting = () => {
-    if (!isGameFinished) {
-      pauseGame();
-    } else {
-      setOpenModal(true);
-    }
-  };
 
   // Reset and load new level properly
   const loadLevel = (levelId: number) => {
@@ -379,6 +351,21 @@ export default function GamePage() {
       }
     }, 300);
   };
+
+  const returnToDash = () => {
+    console.log("Returning to dashboard...");
+    router.push("/dashboard");
+  };
+
+  const [stayOpen, setStayOpen] = useState(false);
+
+  // const handleSetting = () => {
+  //   if (!isGameFinished) {
+  //     pauseGame();
+  //   } else {
+  //     setOpenModal(true);
+  //   }
+  // };
 
   return (
     <ProtectedRoute>
@@ -529,7 +516,7 @@ export default function GamePage() {
         />
 
         <CongratulationModal
-          isOpen={isGameWon}
+          isOpen={isGameWon && currentLevelId !== levels.length}
           onClose={() => {}}
           score={score}
           onNext={() => viewFunFact(handleLoadNext)}
@@ -545,6 +532,12 @@ export default function GamePage() {
         />
 
         <FunFactModal isOpen={showFact} onClose={handleContinue} fact={fact} />
+        <FunfareModal
+          isOpen={isGameWon && currentLevelId == levels.length}
+          finalScore={user.points + score}
+          onClose={() => viewFunFact(returnToDash)}
+          onPlayAgain={() => viewFunFact(handleRestart)}
+        />
       </div>
     </ProtectedRoute>
   );

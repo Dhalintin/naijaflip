@@ -16,29 +16,7 @@ export default function Home() {
   const [error, setError] = useState("");
 
   const router = useRouter();
-  const { setUser } = useGameStore();
-
-  const updateExistingProgress = (user: any) => {
-    // === NEW: Load saved progress from localStorage ===
-    const savedProgressKey = `gameProgress_${user.uid}`;
-    const savedProgressStr = localStorage.getItem(savedProgressKey);
-    let restoredProgress = null;
-
-    if (savedProgressStr) {
-      try {
-        restoredProgress = JSON.parse(savedProgressStr);
-
-        // Optional: Compare logic here (example)
-        // e.g. if server has higher score, keep server data
-        // if (updatedUser?.highScore && restoredProgress.score < updatedUser.highScore) {
-        //   restoredProgress = null; // ignore local, use server
-        // }
-      } catch (e) {
-        console.error("Failed to parse saved game progress", e);
-        localStorage.removeItem(savedProgressKey); // clean invalid data
-      }
-    }
-  };
+  const { setUser, syncLocalProgressToServer } = useGameStore();
 
   const handleGoogleLogin = async () => {
     setLoading(true);
@@ -55,16 +33,10 @@ export default function Home() {
         photoURL: user.photoURL,
       });
 
-      // === NEW: Load saved progress from localStorage ===
-      const savedProgressKey = `gameProgress_${user.uid}`;
-      const savedProgressStr = localStorage.getItem(savedProgressKey);
-      let restoredProgress = null;
+      // Set user first
+      setUser({ ...updatedUser, uid: user.uid });
 
-      if (savedProgressStr) {
-        updateExistingProgress(updatedUser);
-      } else {
-        setUser({ ...updatedUser, uid: user.uid });
-      }
+      await syncLocalProgressToServer();
 
       router.push("/dashboard");
     } catch (err: any) {
@@ -121,6 +93,9 @@ export default function Home() {
       });
 
       setUser({ ...updatedUser, uid: user.uid });
+
+      await syncLocalProgressToServer();
+
       router.push("/dashboard");
     } catch (err: any) {
       let errorMessage = "Something went wrong. Please try again.";
