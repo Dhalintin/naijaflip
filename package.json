@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",
-    "firebase": "^12.11.0",
+    "firebase": "^11.4.0",
     "google": "^2.1.0",
     "lucide-react": "^1.7.0",
     "next": "16.2.1",
@@ -29,5 +29,10 @@
     "eslint-config-next": "16.2.1",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "uuid": "^10.0.0",
+    "request": "npm:noop-package@1.0.0",
+    "har-validator": "npm:noop-package@1.0.0"
   }
 }
