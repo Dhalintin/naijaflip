@@ -207,7 +207,7 @@ export default function GamePage() {
           uid: user.uid,
           updates: {
             currentLevel: Math.max(user.currentLevel || 1, currentLevelId + 1),
-            points: (user.points || 0) + score,
+            points: (user?.points || 0) + score,
           },
         });
 
@@ -534,7 +534,7 @@ export default function GamePage() {
         <FunFactModal isOpen={showFact} onClose={handleContinue} fact={fact} />
         <FunfareModal
           isOpen={isGameWon && currentLevelId == levels.length}
-          finalScore={user.points + score}
+          finalScore={(user?.points || 0) + score}
           onClose={() => viewFunFact(returnToDash)}
           onPlayAgain={() => viewFunFact(handleRestart)}
         />
