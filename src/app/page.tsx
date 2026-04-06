@@ -263,7 +263,7 @@ export default function Home() {
                     <p className="text-center text-sm font-medium text-[#B15A1A]">
                       Nigerian Artefact
                     </p>
-                    <div className="h-52 border border-dotted rounded-t-full flex items-end justify-center w-36">
+                    <div className="h-52 min-h-40 border border-dotted rounded-t-full flex items-end justify-center w-36">
                       <img
                         src="/images/artefact-1.png"
                         alt="Nigerian Artefact"
@@ -276,7 +276,7 @@ export default function Home() {
                     <p className="text-center text-sm font-medium text-[#B15A1A]">
                       Nigerian Artefact
                     </p>
-                    <div className="h-52 border border-dotted rounded-t-full flex items-end justify-center w-36">
+                    <div className="h-52 min-h-40 border border-dotted rounded-t-full flex items-end justify-center w-36">
                       <img
                         src="/images/artefact-2.png"
                         alt="Nigerian Artefact"
@@ -291,7 +291,7 @@ export default function Home() {
                     <p className="text-center text-sm font-medium text-[#B15A1A]">
                       Nigerian Artefact
                     </p>
-                    <div className="h-52 border border-dotted rounded-t-full flex items-end justify-center w-36">
+                    <div className="h-52 min-h-40 border border-dotted rounded-t-full flex items-end justify-center w-36">
                       <img
                         src="/images/artefact-3.png"
                         alt="Nigerian Artefact"

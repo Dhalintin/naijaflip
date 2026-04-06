@@ -153,7 +153,7 @@ export default function Dashboard() {
                 <img
                   src="/images/artefact-1.png"
                   alt=""
-                  className="w-full h-auto border border-[#B15A1A] rounded-t-full border-dotted pt-3"
+                  className="w-full min-h-20 h-auto border border-[#B15A1A] rounded-t-full border-dotted pt-3"
                 />
               </div>
               <div className="w-20 h-auto md:w-36 md:h-48 bg-gray-100 px-2 pt-3 rounded-lg ">
@@ -163,7 +163,7 @@ export default function Dashboard() {
                 <img
                   src="/images/artefact-2.png"
                   alt=""
-                  className="w-full h-auto border border-[#B15A1A] rounded-t-full border-dotted pt-3"
+                  className="w-full min-h-20 h-auto border border-[#B15A1A] rounded-t-full border-dotted pt-3"
                 />
               </div>
               <div className=" w-20 h-auto md:w-36 md:h-48 bg-gray-100 px-2 pt-3 rounded-lg rotate-[18deg] mt-3">
@@ -173,7 +173,7 @@ export default function Dashboard() {
                 <img
                   src="/images/artefact-3.png"
                   alt=""
-                  className="w-full h-auto border border-[#B15A1A] rounded-t-full border-dotted pt-3"
+                  className="w-full min-h-20 h-auto border border-[#B15A1A] rounded-t-full border-dotted pt-3"
                 />
               </div>
               <div className="w-20 h-auto md:w-36 md:h-48 bg-gray-100 px-2 pt-3 rounded-lg rotate-[-162deg] mb-3">
@@ -183,7 +183,7 @@ export default function Dashboard() {
                 <img
                   src="/images/artefact-1.png"
                   alt=""
-                  className="w-full h-auto border border-[#B15A1A] rounded-t-full border-dotted pt-3"
+                  className="w-full min-h-20 h-auto border border-[#B15A1A] rounded-t-full border-dotted pt-3"
                 />
               </div>
               <div className="w-20 h-auto md:w-36 md:h-48 bg-gray-100 px-2 pt-3 rounded-lg rotate-[-180deg] mb-3">
@@ -193,7 +193,7 @@ export default function Dashboard() {
                 <img
                   src="/images/artefact-2.png"
                   alt=""
-                  className="w-full h-auto border border-[#B15A1A] rounded-t-full border-dotted pt-3"
+                  className="w-full min-h-20 h-auto border border-[#B15A1A] rounded-t-full border-dotted pt-3"
                 />
               </div>
               <div className="w-20 h-auto md:w-36 md:h-48 bg-gray-100 px-2 pt-3 rounded-lg rotate-[162deg] mb-3">
@@ -203,7 +203,7 @@ export default function Dashboard() {
                 <img
                   src="/images/artefact-3.png"
                   alt=""
-                  className="w-full h-auto border border-[#B15A1A] rounded-t-full border-dotted pt-3"
+                  className="w-full min-h-20 h-auto border border-[#B15A1A] rounded-t-full border-dotted pt-3"
                 />
               </div>
             </div>
