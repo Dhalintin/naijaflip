@@ -62,7 +62,7 @@ export default function DifficultyModal({
         </div>
 
         {/* Levels Grid */}
-        <div className="p-6 bg-[#2C1810]/95 max-h-[70vh] overflow-y-auto">
+        <div className="p-6 bg-[#2C1810]/95 max-h-[70vh] overflow-y-auto no-scrollbar">
           <div className="grid grid-cols-1 gap-3">
             {levels.map((level) => (
               <button

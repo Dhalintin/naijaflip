@@ -65,10 +65,10 @@ export default function GameHistory() {
           </div>
         </nav>
 
-        <div className="w-screen max-h-full overflow-y-auto px-6 pt-2 pb-6 relative z-10 flex justify-center">
+        <div className="w-screen max-h-full overflow-y-auto px-6 pt-2 pb-6 relative z-10 flex justify-center no-scrollbar">
           {/* Table */}
-          <div className="rounded-2xl border border-amber-200 shadow-sm overflow-hidden  md:w-5xl">
-            <div className="max-h-[480px] overflow-auto">
+          <div className="rounded-2xl border border-amber-200 shadow-sm overflow-hidden no-scrollbar md:w-5xl">
+            <div className="max-h-[480px] overflow-auto no-scrollbar">
               <table className="w-full text-sm md:text-md md:text-md md:min-w-[700px]">
                 {/* Fixed Header */}
                 <thead className="sticky top-0 z-20 bg-amber-700 text-white">
@@ -98,8 +98,7 @@ export default function GameHistory() {
                         </div>
                       </td>
                     </tr>
-                  ) : (
-                    history.length > 0 &&
+                  ) : history.length > 0 ? (
                     history?.map((game, index) => (
                       <tr
                         key={index}
@@ -123,6 +122,15 @@ export default function GameHistory() {
                         </td>
                       </tr>
                     ))
+                  ) : (
+                    <tr>
+                      <td colSpan={999} className="h-[400px]">
+                        <div className="flex items-center justify-center h-full w-full">
+                          You have no history. Seems like you haven't played any
+                          game
+                        </div>
+                      </td>
+                    </tr>
                   )}
                 </tbody>
               </table>
