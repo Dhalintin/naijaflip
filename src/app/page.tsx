@@ -41,6 +41,7 @@ export default function Home() {
       router.push("/dashboard");
     } catch (err: any) {
       let errorMessage = "Something went wrong. Please try again.";
+      console.log(err);
 
       // Handle common Firebase Google login errors
       if (err.code) {
@@ -99,6 +100,7 @@ export default function Home() {
       router.push("/dashboard");
     } catch (err: any) {
       let errorMessage = "Something went wrong. Please try again.";
+      console.log(err);
 
       // Handle common Firebase Google login errors
       if (err.code) {
