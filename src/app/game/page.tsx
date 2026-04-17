@@ -62,6 +62,7 @@ export default function GamePage() {
 
   const [deck, setDeck] = useState<string[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const [countDown, setCountDown] = useState<number | null>(null);
 
   // Initialize deck and start the game
   useEffect(() => {
@@ -70,13 +71,27 @@ export default function GamePage() {
     const newDeck = createMemoryDeck(cards, det.pairs, det.duplicates);
     setDeck(newDeck);
 
-    setTimeLimit(det.time);
-    startGame(det.time);
-    setTimeout(() => {}, 1000);
-    const reveal = Array.from({ length: newDeck.length }, (_, i) => i);
-    setRevealedCards(reveal);
-    setCurrentLevelId(det.id);
+    setCountDown(4);
+    setTimeout(() => {
+      setTimeLimit(det.time);
+      startGame(det.time);
+      const reveal = Array.from({ length: newDeck.length }, (_, i) => i);
+      setRevealedCards(reveal);
+      setCurrentLevelId(det.id);
+    }, 5000);
   }, [det, cards, startGame, setTimeLimit]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (countDown === 0) {
+        setCountDown(null);
+      } else {
+        if (countDown !== null) setCountDown(countDown - 1);
+      }
+    }, 800);
+
+    return () => clearInterval(interval);
+  }, [countDown]);
 
   useEffect(() => {
     if (!isGameStarted || isGameFinished || isPaused) {
@@ -121,56 +136,6 @@ export default function GamePage() {
     setUser({ ...user, ...newRec });
   };
 
-  // useEffect(() => {
-  //   const recordWin = async () => {
-  //     try {
-  //       if (deck.length === 0) return;
-
-  //       const allCardsMatched = deactivatedCards.length === deck.length;
-
-  //       if (allCardsMatched && !isGameFinished && !isGameWon) {
-  //         setIsLoading(true);
-  //         endGame("win");
-  //         console.log("Saving game result...");
-
-  //         await saveGameResult({
-  //           userId: user.uid,
-  //           gameLevel: currentLevelId,
-  //           score: score,
-  //           status: isGameWon ? "won" : "lost",
-  //           timeTaken: det.time - remainingTime,
-  //         });
-
-  //         console.log("Updating user game level...");
-
-  //         const newRec = await updateUserProfile({
-  //           uid: user.uid,
-  //           updates: {
-  //             currentLevel: Math.max(user.currentLevel, currentLevelId + 1),
-  //             points: user.points + score,
-  //           },
-  //         });
-
-  //         updateLocal(newRec);
-  //         setProgressUpdated(true);
-  //       }
-  //     } catch (err: any) {
-  //       console.log(err);
-  //       // setProgressUpdated(false);
-  //       setProgressStoreError(
-  //         "Problem storing progress. <br /> Check internet connection. <br /> Unsaved progress are lost!"
-  //       );
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   recordWin();
-  // }, [deactivatedCards]);
-
-  // Cleanup timer on unmount
-
-  // Win Detection + Firebase Save
-  // Safe Win Detection + Firebase Save
   useEffect(() => {
     const recordWin = async () => {
       // === GUARDS ===
@@ -370,18 +335,28 @@ export default function GamePage() {
   return (
     <ProtectedRoute>
       <div
-        className="min-h-screen bg-cover bg-center relative font-sans overflow-hidden text-black font-capriola"
+        className="h-screen bg-cover bg-center relative font-sans overflow-hidden text-black font-capriola"
         style={{ backgroundImage: "url('/images/background.png')" }}
       >
         <div className="absolute inset-0 bg-gray-400/90" />
-
-        {/* {isLoading && (
-          <div className=" absolute inset-0 bg-gray-500/60 min-h-screen w-screen flex items-center justify-center font-capriola z-12">
-            <div className="text-xl text-black">Saving progress...</div>
+        <div
+          className={`fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-xs transition-opacity duration-300 ${
+            countDown
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
+          }`}
+        >
+          <div className="text-center">
+            <div className="text-white text-[180px] font-bold animate-pulse leading-none">
+              {countDown}
+            </div>
+            <p className="text-white/70 text-2xl mt-4 font-medium tracking-widest">
+              GET READY...
+            </p>
           </div>
-        )} */}
+        </div>
 
-        <div className="relative z-10 flex flex-col justify-between items-between h-screen max-w-screen mx-auto px-4 pt-6 pb-1">
+        <div className="relative z-10 flex flex-col justify-between items-between h-screen max-w-screen mx-auto px-4 pb-1 pt-6">
           {progressStoreError && (
             <div className="absolute right-0 top-8 w-48 p-2 rounded-md bg-amber-50/90 text-black z-[12] text-xs md:text-md text-red-600">
               {progressStoreError}

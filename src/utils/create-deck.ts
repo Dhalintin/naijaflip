@@ -4,9 +4,9 @@
  * shuffles the result, and returns the final game deck.
  */
 export function createMemoryDeck(
-  cards: any[], // Array of card identifiers (e.g. image names or IDs)
-  numUniqueCards: number, // How many different cards to pick (e.g. 6, 9, 12)
-  duplicatesPerCard: 2 | 4 | 6 = 2 // How many times to duplicate each card
+  cards: any[],
+  numUniqueCards: number,
+  duplicatesPerCard: 2 | 4 | 6 = 2
 ): string[] {
   // Step 1: Validate inputs
   if (numUniqueCards <= 0 || numUniqueCards > cards.length) {
@@ -30,10 +30,28 @@ export function createMemoryDeck(
   }
 
   // Step 4: Shuffle the final deck thoroughly
-  for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j], deck[i]];
+  const shuffledDeck = shuffleVigorously(deck);
+  // for (let i = deck.length - 1; i > 0; i--) {
+  //   const j = Math.floor(Math.random() * (i + 1));
+  //   [deck[i], deck[j]] = [deck[j], deck[i]];
+  // }
+
+  return shuffledDeck;
+}
+
+function shuffleVigorously<T>(array: T[]): T[] {
+  const shuffled = [...array];
+
+  for (let pass = 0; pass < 5; pass++) {
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const randomFactor =
+        Math.floor(Math.random() * (i + 1)) + (Date.now() % (i + 1));
+
+      const j = randomFactor % (i + 1);
+
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
   }
 
-  return deck;
+  return shuffled;
 }
